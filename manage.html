@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>CV Content Management</title>
+    <script src="https://unpkg.com/vue@2.7.8/dist/vue.js"></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+<div id="loginApp">
+    <section class="container">
+        <header>{{this.title}}</header>
+        <h2>CV Content Management</h2>
+
+
+
+         <div class="form">
+             <div class="column">
+                 <a id="feedbacks" v-html="feeds"></a>
+                 <br>
+             </div>
+            <div v-if="loginPage==true">
+
+                <div class="input-box">
+                    <br>
+                    <label>UserName: </label>
+                   <input v-model="userName" value=userName><br><br>
+                    <label>Password: </label>
+                    <input v-model="password" value=password>
+                    <br>
+                    <br>
+                </div>
+                <button id="formButton" v-on:click="loginCheck">Login</button>
+                <br>
+            </div>
+            <div v-if="showCourses==true">
+                <h4>Welcome {{this.userName}}</h4>
+                <button id="moreButtons" v-on:click="addCourse()">+ Add New Course</button>
+                <br>
+                <div class="input-box">
+                <div v-for="course in courses">
+
+               <div class="input-box">
+                <a>CourseName: <p class="det">{{course.name}}</p></a><br>
+                   <a>CourseCode: <p class="det">{{course.code}}</p></a><br>
+                   <a>Degree: <p class="det">{{course.type}}</p></a>
+
+               <hr>
+               <button id="moreButton" v-on:click="editCourse(course)">Edit Course Details</button>
+               <button id="moreButton" v-on:click="detailCourse(course)">Go to Course Modules</button>
+               <button id="moreButton" v-on:click="removeCourse(course)">Remove<br>Course</button>
+               </div>
+           </div>
+                </div>
+
+            </div>
+             <div v-if="courseEdit==true">
+                 <div class="input-box">
+                 <div class="input-box">
+                     <a>CourseName: </a>
+                     <input v-model="courseName" value=courseName>
+                 </div>
+                     <div class="input-box">
+                     <a>CourseCode:</a>
+                     <input v-model="courseCode" value=courseCode>
+                     </div>
+                         <div class="input-box">
+                         <a>Degree: </a>
+                             <select v-model="courseType" value="courseType">
+                                 <option value="Undergraduate">Undergraduate</option>
+                                 <option value="Postgraduate">Postgraduate</option>
+                             </select>
+
+                 </div>
+                     <button id="moreButton" v-on:click="saveCourse()">Save</button>
+                     <button id="moreButton" v-on:click="saveCancel()">Cancel</button>
+
+                 </div>
+
+
+                 </div>
+             <div v-if="moduleEdit==true">
+                 <div class="input-box">
+                     <div class="input-box">
+                         <a>ModuleName: </a>
+                         <input v-model="moduleName" value=moduleName>
+                     </div>
+                     <div class="input-box">
+                         <a>ModuleCode:</a>
+                         <input v-model="moduleCode" value=moduleCode>
+                     </div>
+                     <div class="input-box">
+                         <a>ModuleYear:</a>
+                         <input v-model="moduleYear" value=moduleYear>
+                     </div>
+                     <div class="input-box">
+                         <a>Optional: </a>
+                         <select v-model="moduleOptional" value=moduleOptional>
+                             <option value="Y">Yes</option>
+                             <option value="N">No</option>
+                         </select>
+                     </div>
+                     <div class="input-box">
+                         <a>Skill1:</a>
+                         <textarea id="skilltext" v-model="moduleSkill1" value=moduleSkill1></textarea>
+                     </div>
+                     <div class="input-box">
+                         <a>Skill2:</a>
+                         <textarea id="skilltext" v-model="moduleSkill2" value=moduleSkill2></textarea>
+                     </div>
+
+                     <div class="input-box">
+                         <a>Skill3:</a>
+                         <textarea id="skilltext" v-model="moduleSkill3" value=moduleSkill3></textarea>
+                     </div>
+                     <div class="input-box">
+                         <a>Skill4:</a>
+                         <textarea id="skilltext" v-model="moduleSkill4" value=moduleSkill4></textarea>
+                     </div>
+                     <div class="input-box">
+                         <a>Skill5:</a>
+                         <textarea id="skilltext" v-model="moduleSkill5" value=moduleSkill5></textarea>
+                     </div>
+                     <button id="moreButton" v-on:click="saveModule()">Save</button>
+                     <button id="moreButton" v-on:click="saveModuleCancel()">Cancel</button>
+
+                 </div>
+             </div>
+             <div v-if="moduleShow==true">
+                 <h4>Welcome {{this.userName}}</h4>
+                 <button id="moreButton" v-on:click="gotToCourses()">Go to Courses</button>
+                 <button id="moreButons" v-on:click="addModules()">+ Add New Modules</button>
+                 <br>
+                 <div class="input-box">
+                     <div v-for="course in modules">
+
+                         <div class="input-box">
+                             <a>ModuleName: <p class="det">{{course.code}}</p></a><br>
+                             <a>ModuleCode: <p class="det">{{course.name}}</p></a><br>
+                             <a>Year: <p class="det">{{course.year}}</p></a><br>
+                             <a>Type: <p class="det">{{getOptional(course.optional)}}</p></a><br>
+                             <a>Skill1: <p class="det">{{course.skill1}}</p></a><br>
+                             <a>Skill2: <p class="det">{{course.skill2}}</p></a><br>
+                             <a>Skill3: <p class="det">{{course.skill3}}</p></a><br>
+                             <a>Skill4: <p class="det">{{course.skill4}}</p></a><br>
+                             <a>Skill5: <p class="det">{{course.skill5}}</p></a><br>
+
+
+
+                             <hr>
+                             <button id="moreButton" v-on:click="editModule(course)">Edit Module Details</button>
+                             <button id="moreButton" v-on:click="removeModule(course)">Remove Module</button>
+                         </div>
+                     </div>
+                 </div>
+
+             </div>
+             <div v-if="courseAdd==true">
+                 <div class="input-box">
+                     <div class="input-box">
+                         <a>CourseName: </a>
+                         <input v-model="courseName" value=courseName>
+                     </div>
+                     <div class="input-box">
+                         <a>CourseCode:</a>
+                         <input v-model="courseCode" value=courseCode>
+                     </div>
+                     <div class="input-box">
+                         <a>Degree: </a>
+                         <select v-model="courseType" value="courseType">
+                             <option value="Undergraduate">Undergraduate</option>
+                             <option value="Postgraduate">Postgraduate</option>
+                         </select>
+
+                         <!--                         <input v-model="courseType" value=courseType>-->
+
+                     </div>
+                     <button id="moreButton" v-on:click="newCourse()">Add</button>
+                     <button id="moreButton" v-on:click="saveCancel()">Cancel</button>
+
+                 </div>
+
+
+             </div>
+             <div v-if="moduleAdd==true">
+                 <div class="input-box">
+                     <div class="input-box">
+                         <a>ModuleName: </a>
+                         <input v-model="moduleName" value=moduleName>
+                     </div>
+                     <div class="input-box">
+                         <a>ModuleCode:</a>
+                         <input v-model="moduleCode" value=moduleCode>
+                     </div>
+                     <div class="input-box">
+                         <a>ModuleYear:</a>
+                         <input v-model="moduleYear" value=moduleYear>
+                     </div>
+                     <div class="input-box">
+                         <a>Optional: </a>
+                         <select v-model="moduleOptional" value=moduleOptional>
+                             <option value="Y">Yes</option>
+                             <option value="N">No</option>
+                         </select>
+                     </div>
+                     <div class="input-box">
+                         <a>Skill1:</a>
+                         <input v-model="moduleSkill1" value=moduleSkill1>
+                     </div>
+                     <div class="input-box">
+                         <a>Skill2:</a>
+                         <input v-model="moduleSkill2" value=moduleSkill2>
+                     </div>
+
+                     <div class="input-box">
+                         <a>Skill3:</a>
+                         <input v-model="moduleSkill3" value=moduleSkill3>
+                     </div>
+                     <div class="input-box">
+                         <a>Skill4:</a>
+                         <input v-model="moduleSkill4" value=moduleSkill4>
+                     </div>
+                     <div class="input-box">
+                         <a>Skill5:</a>
+                         <input v-model="moduleSkill5" value=moduleSkill5>
+                     </div>
+
+
+
+
+                     <button id="moreButton" v-on:click="newModule()">Add</button>
+                     <button id="moreButton" v-on:click="saveModuleCancel()">Cancel</button>
+
+                 </div>
+
+
+             </div>
+            <div class="column">
+                <a id="feedback" v-html="feed"></a>
+            </div>
+        </div>
+
+    </section>
+
+</div>
+</body>
+<script src="main.js"></script>
+</html>

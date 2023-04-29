@@ -1,0 +1,128 @@
+
+/* Import Google font - Poppins */
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700&display=swap");
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Poppins", sans-serif;
+}
+label::after{
+    content: ' *';
+    color: red;
+    font-size: 20px;
+}
+#feedback{
+    color: red;
+}
+#feedbacks{
+    color: blue;
+}
+#formButton {
+    height: 55px;
+    width: 100%;
+    color: #fff;
+    font-size: 1rem;
+    font-weight: 400;
+    margin-top: 30px;
+    border: none;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    background: rgb(130, 106, 251);
+}
+body {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    background: #282828;
+    font-family: Arial, sans-serif;
+    margin: 0;
+}
+.container {
+    position: relative;
+    max-width: 700px;
+    width: 100%;
+    background: #fff;
+    padding: 25px;
+    border-radius: 8px;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+}
+.container header {
+    font-size: 1.5rem;
+    color: #333;
+    font-weight: 500;
+    text-align: center;
+}
+.container .form {
+    margin-top: 30px;
+}
+.input-box {
+    width: 100%;
+    border: 3px solid lightskyblue;
+    padding: 10px;
+    color: yellowgreen;
+    margin-bottom: 10px;
+}
+#moreButton {
+    transition-duration: 0.4s;
+    border-radius: 8px;
+    width: 30%;
+    text-align: center;
+
+}
+#moreButton:hover {
+    background-color: blueviolet;
+    color: skyblue;
+}
+#moreButtons {
+    transition-duration: 0.4s;
+    border-radius: 8px;
+    width: 50%;
+    text-align: center;
+    margin-left: 180px;
+
+}
+#moreButtonss:hover {
+    background-color: blueviolet;
+    color: skyblue;
+}
+#moreButtonss {
+    transition-duration: 0.4s;
+    border-radius: 4px;
+    width: 30%;
+    text-align: center;
+    margin-left: 220px;
+
+}
+#moreButtons:hover {
+    background-color: blueviolet;
+    color: skyblue;
+}
+#skilltext{
+    width: 300px;
+    height: 80px;
+}
+#moreButons {
+    transition-duration: 0.4s;
+    border-radius: 8px;
+    width: 50%;
+    text-align: center;
+    margin-left: 320px;
+
+}
+#moreButons:hover {
+    background-color: blueviolet;
+    color: skyblue;
+}
+.input-box a{
+    color: black;
+}
+.det{
+    color: blue;
+}
+.form .column {
+    display: flex;
+    column-gap: 15px;
+}
